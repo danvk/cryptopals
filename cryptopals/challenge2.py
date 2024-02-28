@@ -43,10 +43,6 @@ def xor(bits1, bits2):
 if __name__ == '__main__':
     hex1, hex2 = sys.argv[1:]
     bits1 = hex_to_bits(hex1)
-    # print(bits1)
     bits2 = hex_to_bits(hex2)
-    # print(bits2)
-    # print(bits_to_hex(bits1))
-    # print(bits_to_hex(bits2))
     bits_out = xor(bits1, bits2)
     print(bits_to_hex(bits_out))
