@@ -53,8 +53,7 @@ def score_phrase(letters: str):
     return sum(score_letter(ch) for ch in letters)
 
 
-if __name__ == '__main__':
-    (hex,) = sys.argv[1:]
+def find_best_single_xor(hex: str):
     bits = hex_to_bits(hex)
     assert len(bits) % 8 == 0
 
@@ -74,4 +73,9 @@ if __name__ == '__main__':
             letters = bytes_to_ascii(u8s)
             scores.append((score_phrase(letters), h1+h2, letters))
 
-    print(min(scores))
+    return min(scores)
+
+
+if __name__ == '__main__':
+    (hex,) = sys.argv[1:]
+    print(find_best_single_xor(hex))
