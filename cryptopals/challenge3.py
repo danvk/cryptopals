@@ -32,7 +32,7 @@ def is_ascii(bytes):
 
 
 SCRABBLE = [
-    (1, 'AEIOULNSTR'),
+    (1, 'AEIOULNSTR '),
     (2, 'DG'),
     (3, 'BCMP'),
     (4, 'FHVWY'),

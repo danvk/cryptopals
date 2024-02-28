@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+#
+# I got quite stuck on this one because I counted "space" as an invalid character.
 
 import fileinput
 from cryptopals.challenge2 import hex_to_bits

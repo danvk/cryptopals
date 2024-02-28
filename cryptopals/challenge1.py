@@ -50,6 +50,7 @@ def hex_to_base64(line):
     return ''.join(out)
 
 
-for line in fileinput.input():
-    line = line.strip()
-    print(hex_to_base64(line))
+if __name__ == '__main__':
+    for line in fileinput.input():
+        line = line.strip()
+        print(hex_to_base64(line))
