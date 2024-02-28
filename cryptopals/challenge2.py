@@ -7,6 +7,7 @@ def hex_to_bits(hex):
     bits = []
     for char in hex:
         num = int(char, base=16)
+        assert 0 <= num <= 15
         bits.append(1 if num & 0b1000 else 0)
         bits.append(1 if num & 0b0100 else 0)
         bits.append(1 if num & 0b0010 else 0)

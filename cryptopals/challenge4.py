@@ -6,19 +6,19 @@ from cryptopals.challenge2 import hex_to_bits
 from cryptopals.challenge3 import find_best_single_xor
 
 
-def str_to_bits(s):
-    bits = []
-    for ch in s:
-        x = ord(ch)
-        bits.append(1 if x & 0b10000000 else 0)
-        bits.append(1 if x & 0b01000000 else 0)
-        bits.append(1 if x & 0b00100000 else 0)
-        bits.append(1 if x & 0b00010000 else 0)
-        bits.append(1 if x & 0b00001000 else 0)
-        bits.append(1 if x & 0b00000100 else 0)
-        bits.append(1 if x & 0b00000010 else 0)
-        bits.append(1 if x & 0b00000001 else 0)
-    return bits
+# def str_to_bits(s):
+#     bits = []
+#     for ch in s:
+#         x = ord(ch)
+#         bits.append(1 if x & 0b10000000 else 0)
+#         bits.append(1 if x & 0b01000000 else 0)
+#         bits.append(1 if x & 0b00100000 else 0)
+#         bits.append(1 if x & 0b00010000 else 0)
+#         bits.append(1 if x & 0b00001000 else 0)
+#         bits.append(1 if x & 0b00000100 else 0)
+#         bits.append(1 if x & 0b00000010 else 0)
+#         bits.append(1 if x & 0b00000001 else 0)
+#     return bits
 
 
 if __name__ == '__main__':
