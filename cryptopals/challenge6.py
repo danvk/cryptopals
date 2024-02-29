@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import itertools
 import sys
 
 from cryptopals.challenge3 import bits_to_bytes, bytes_to_ascii, find_best_single_xor
@@ -77,21 +78,27 @@ if __name__ == '__main__':
     # 5: (1.2, ks=5, ed=6)
     # 3: (2.0, ks=3, ed=6)
     # 2: (2.5, ks=2, ed=5)
+    # choice: could try averaging score across four blocks
     scores = []
     for keysize in range(2, 41):
         keysize_bits = 8 * keysize
-        first = bits[0:keysize_bits]
-        second = bits[keysize_bits:2*keysize_bits]
-        assert len(first) == keysize_bits
-        assert len(second) == keysize_bits
-        distance = edit_distance(first, second)
+        blocks = [*chunk(bits, keysize_bits)][:4]
+        ds = []
+        for a, b in itertools.combinations(blocks, 2):
+            ds.append(edit_distance(a, b))
+        distance = sum(ds) / len(ds)
         norm_d = distance / keysize
+        # first = bits[0:keysize_bits]
+        # second = bits[keysize_bits:2*keysize_bits]
+        # assert len(first) == keysize_bits
+        # assert len(second) == keysize_bits
+        # distance = edit_distance(first, second)
+        # norm_d = distance / keysize
         scores.append((norm_d, keysize, distance))
     scores.sort()
     print(scores[:3])
     input_bits = bits
 
-    # choice: could try each of top three keysizes
     keysizes = [ks for _, ks, _ in scores[:3]]
     for keysize in keysizes:
         print(f'{keysize=}')
@@ -120,4 +127,7 @@ if __name__ == '__main__':
         decoded_bits = repeating_xor(bits, key_bits)
         decoded_str = bytes_to_ascii(bits_to_bytes(decoded_bits))
         print(f'len(decoded_str)={len(decoded_str)}')
-        # print(f' -> {decoded_str}')
+        print(decoded_str)
+        break
+
+
