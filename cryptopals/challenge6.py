@@ -2,7 +2,8 @@
 
 import sys
 
-from cryptopals.challenge3 import bits_to_bytes, find_best_single_xor
+from cryptopals.challenge3 import bits_to_bytes, bytes_to_ascii, find_best_single_xor
+from cryptopals.challenge5 import repeating_xor
 
 
 def edit_distance(bits1, bits2):
@@ -88,23 +89,35 @@ if __name__ == '__main__':
         scores.append((norm_d, keysize, distance))
     scores.sort()
     print(scores[:3])
+    input_bits = bits
 
     # choice: could try each of top three keysizes
-    keysize = scores[0][1]
-    print(f'{keysize=}')
+    keysizes = [ks for _, ks, _ in scores[:3]]
+    for keysize in keysizes:
+        print(f'{keysize=}')
 
-    u8s = bits_to_bytes(bits)
-    blocks = [*chunk(u8s, keysize)]
-    print(f'n blocks: {len(blocks)}')
-    print(len(blocks[0]))
-    print(len(blocks[-1]))
+        u8s = bits_to_bytes(input_bits)
+        blocks = [*chunk(u8s, keysize)]
+        print(f'n blocks: {len(blocks)}')
+        print(len(blocks[0]))
+        print(len(blocks[-1]))
 
-    trans = [*zip(*blocks)]
-    print(f'n trans={len(trans)}')
-    print(f'n trans[0]={len(trans[0])}')
+        trans = [*zip(*blocks)]
+        print(f'n trans={len(trans)}')
+        print(f'n trans[0]={len(trans[0])}')
 
-    for i, block in enumerate(trans):
-        bits = bytes_to_bits(block)
-        print(i)
-        print(find_best_single_xor(bits))
+        key = []
+        for i, block in enumerate(trans):
+            bits = bytes_to_bits(block)
+            print(i)
+            result = find_best_single_xor(bits)
+            print(result)
+            score, key_hex, _ = result
+            key.append(int(key_hex, base=16))
 
+        print(f'{key=}')
+        key_bits = bytes_to_bits(key)
+        decoded_bits = repeating_xor(bits, key_bits)
+        decoded_str = bytes_to_ascii(bits_to_bytes(decoded_bits))
+        print(f'len(decoded_str)={len(decoded_str)}')
+        # print(f' -> {decoded_str}')
