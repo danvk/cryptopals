@@ -2,7 +2,7 @@
 
 import sys
 
-from cryptopals.challenge3 import bits_to_bytes
+from cryptopals.challenge3 import bits_to_bytes, find_best_single_xor
 
 
 def edit_distance(bits1, bits2):
@@ -42,6 +42,20 @@ def base64_to_bits(str):
     return bits
 
 
+def bytes_to_bits(bs):
+    bits = []
+    for x in bs:
+        bits.append(1 if x & 0b10000000 else 0)
+        bits.append(1 if x & 0b01000000 else 0)
+        bits.append(1 if x & 0b00100000 else 0)
+        bits.append(1 if x & 0b00010000 else 0)
+        bits.append(1 if x & 0b00001000 else 0)
+        bits.append(1 if x & 0b00000100 else 0)
+        bits.append(1 if x & 0b00000010 else 0)
+        bits.append(1 if x & 0b00000001 else 0)
+    return bits
+
+
 def chunk(xs: list, n: int):
     # split an array into chunks of length n; may truncate last one
     for i in range(0, len(xs), n):
@@ -74,6 +88,8 @@ if __name__ == '__main__':
         scores.append((norm_d, keysize, distance))
     scores.sort()
     print(scores[:3])
+
+    # choice: could try each of top three keysizes
     keysize = scores[0][1]
     print(f'{keysize=}')
 
@@ -86,3 +102,9 @@ if __name__ == '__main__':
     trans = [*zip(*blocks)]
     print(f'n trans={len(trans)}')
     print(f'n trans[0]={len(trans[0])}')
+
+    for i, block in enumerate(trans):
+        bits = bytes_to_bits(block)
+        print(i)
+        print(find_best_single_xor(bits))
+
