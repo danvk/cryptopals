@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import base64
 import itertools
 import sys
 
@@ -67,11 +68,14 @@ def chunk(xs: list, n: int):
 
 
 if __name__ == '__main__':
-    bits = [
-        bit
-        for line in open(sys.argv[1]).readlines()
-        for bit in base64_to_bits(line.strip())
-    ]
+    # bits = [
+    #     bit
+    #     for line in open(sys.argv[1]).readlines()
+    #     for bit in base64_to_bits(line.strip())
+    # ]
+    # print(len(bits), 'bits')
+    in_bytes = base64.decodebytes(open(sys.argv[1], 'rb').read())
+    bits = bytes_to_bits(in_bytes)
     print(len(bits), 'bits')
 
     # best keysizes:
