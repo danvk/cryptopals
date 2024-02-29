@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# https://github.com/ricpacca/cryptopals/ uses PyCrypto,
+# but that's deprecated. I used cryptography.
 
 import base64
 import sys
