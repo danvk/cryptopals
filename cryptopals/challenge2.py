@@ -17,12 +17,12 @@ def hex_to_bits(hex):
 
 HEX_DIGITS = [
     *(str(d) for d in range(0, 10)),
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F'
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f'
 ]
 assert len(HEX_DIGITS) == 16
 
