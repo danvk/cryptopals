@@ -124,10 +124,8 @@ if __name__ == '__main__':
 
         print(f'{key=}')
         key_bits = bytes_to_bits(key)
-        decoded_bits = repeating_xor(bits, key_bits)
+        decoded_bits = repeating_xor(input_bits, key_bits)
         decoded_str = bytes_to_ascii(bits_to_bytes(decoded_bits))
         print(f'len(decoded_str)={len(decoded_str)}')
         print(decoded_str)
         break
-
-
